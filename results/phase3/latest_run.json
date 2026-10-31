@@ -1,0 +1,20 @@
+{
+  "artifact_sha256": {
+    "phase3_report.md": "34e07836711f71e3ea9a131cefcec578766681bacad0685d68608e34b9eb142c",
+    "queries_train.json": "39c1a99255ef2e1f25cacdd01543fe329592d55c6b2a1f4b0295058d16347981",
+    "query_feasibility_report.md": "30c1b176b0f0105690773db11936fdcce6c027e7ff519909d5c95b8f541987ac",
+    "query_inventory.json": "b81424409c0e66dd79a7801b583f65dcf2239f2d3722416486e21e6aca8bdc25",
+    "run_manifest.json": "5d7d030a677188ea6968beb488e29ce0944a69fc63909b3cc218a33ac7b65a79",
+    "structural_query_results.json": "23152baea04df9e219b8b95afa34d6ca5e1823c3b44dbe508d17a5f169541c0f"
+  },
+  "error": null,
+  "format_version": 1,
+  "review_artifact_sha256": {
+    "qa_review_dossier.json": "fa6c932b71ab8108467206d190f3ccdfbeeffdf11e17b6e5df63ed8d18af6795",
+    "qa_review_worklist.csv": "13c0301d6d829c1bf2d9e695f7af5f9c3fde0d181bf3c00756b31965b13ea855"
+  },
+  "review_directory": "data/private_gold/phase3/runs/e71e70e24e264281b856e709f0555db7",
+  "run_directory": "runs/e71e70e24e264281b856e709f0555db7",
+  "run_id": "e71e70e24e264281b856e709f0555db7",
+  "status": "PASS"
+}
