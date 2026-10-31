@@ -1,4 +1,4 @@
-# GIR-ER exploratory pilot — Phases 0–1
+# GIR-ER exploratory pilot — Phases 0–2
 
 This repository audits the local Re-DocRED annotations for a future entity-consolidation pilot. GIR-ER's incremental benefit is an unvalidated hypothesis. Phase 0 creates no identity labels, verified QA answers, merge decisions or performance results.
 
@@ -57,3 +57,22 @@ If output protection rejects a location, nothing is written there. If latest-run
 For deterministic reruns compare `graph_summary.json`, `provenance_demo.json` and `phase1_report.md` inside the two completed run directories. Unique IDs, latest-run state and machine-specific run_manifest metadata are not required to match. The manifest records hashes of the builder, reused validator, Phase 0 audit/manifest and all raw inputs. Format version 2 adds scope metadata and the new publication contract; graph record construction remains unchanged. See [validation evidence](results/phase1/validation_record.md) for actual commands, regressions and checks. Protected raw, Phase 0 and private-gold output locations and symlinked status/run paths are rejected.
 
 No candidate generation, fragmentation, query-answer evaluator, matcher, risk rule, merge simulator or ASPEN reproduction is implemented. Phase 2 requires separate approval.
+
+## Phase 2 unlabelled candidate preparation
+
+Work on the separate phase-two branch. Reuse the existing environment; no new dependencies:
+
+```bash
+.venv/bin/python -B scripts/candidate_discovery.py --data-dir data/raw/re_docred/data --manifest results/phase0/input_manifest.json --output-dir results/phase2 --review-dir data/private_gold/phase2
+.venv/bin/python -B -m pytest -q -p no:cacheprovider
+```
+
+The pipeline discovers exact normalized-name and initialism pairs from train only. It validates train's original graph record by record, counts all types and selects up to 24 PER/ORG/LOC cases using frozen source-based categories and endpoint/key diversity. No category is an identity label. Dev supports exact-text overlap checks only; test is hashed only. Dev document 469 duplicates train document 3052 and is recorded as excluded from later dev evaluation; raw documents remain unchanged.
+
+Inspect `results/phase2/latest_run.json`, then its referenced immutable run directory and hashes. That directory contains candidates_train.json, candidate_inventory.json, candidate_feasibility_report.md, phase2_report.md and run_manifest.json. Only a complete referenced PASS establishes latest success. Each invocation creates new packages; failures preserve earlier results and explicitly record FAILED when status initialization succeeded. One writer per output directory is required.
+
+The source-rich review_dossier.json and blank review_worklist.csv are written under Git-ignored data/private_gold/phase2/runs/<run-id>/. They are evaluation/preparation-only; the generator never reads earlier private files. Inspect them locally using the [annotation guide](docs/annotation_guide.md), preserve the blank snapshot and save actual annotations separately. Do not publish private files or source-derived excerpts. Candidate names are local inputs, not cleared for redistribution.
+
+Compare the four deterministic public artifacts excluding run_manifest.json and both initially blank private artifacts across repeated runs. Timing, invocation metadata, latest status and unique run IDs may differ. A failure between the two package publications can leave an orphan directory; it is not latest success without the final PASS record.
+
+See [Phase 2 methodology and leakage policy](docs/phase2_candidate_methodology.md). Controlled fragmentation is feasibility-only: no fragments, private parent map, controlled pairs or reassigned edges. Identity annotation, QA workloads, merges, counterfactual effects and GIR-ER effectiveness remain unperformed. STOP after Phase 2 for independent review.

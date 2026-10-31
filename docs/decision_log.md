@@ -45,3 +45,24 @@ Code, tests and report drafts were generated with Codex assistance. Synthetic fi
 - LIMITATION: One writer per output directory. Unsafe/unwritable output preflight may prevent recording a new attempt; stderr/exit status then remain authoritative for that invocation. Power/storage-loss durability is not guaranteed.
 - OPEN: Independent review of corrected code and evidence before declaring Phase 1 conditions finally closed. Research limitations and Phase 2 approval gates remain unchanged.
 - OBSERVED: All 70 applicable tests pass. Two real-data repository runs validate FULL_SPLIT provenance for all 78,822 nodes and 120,664 edges; three deterministic artifacts match byte-for-byte. The real-data success-then-missing-manifest regression records FAILED without changing prior results. Source/Phase 0/configuration/staging preservation checks pass. Detailed commands and hashes are appended to results/phase1/validation_record.md. These observations support closure review of the two technical conditions, not Phase 2 approval or GIR-ER effectiveness.
+
+## Phase 2 approval and method freeze
+
+- CONFIRMED: Student approved Phase 2 only and the full implementation plan; no staging, commit, push, merge, Git configuration change or Phase 3 work.
+- CONFIRMED: Train-only exact normalized-alias and exact-initialism discovery. Dev is limited to overlap/schema checking; test to fingerprint integrity.
+- CONFIRMED: Provisional natural targets: 4 sparse, 4 different-name abbreviation, 8 challenging name collisions and 8 compatible-name/context cases, with no identity labels inferred from these categories.
+- CONFIRMED: Discover all types, but sample only singleton PER/ORG/LOC groups; no repeated selected endpoints or matching alias/initialism keys. Fixed numeric source order and documented category priority; report shortages without retuning.
+- CONFIRMED: Controlled-fragmentation feasibility only. No fragment nodes, controlled pairs, parent maps or edge reassignments. Actual attribution policy needs separate student approval.
+- CONFIRMED: Keep raw train 3052 and dev 469 unchanged; exclude exact train-duplicate dev content from later dev evaluation and record affected IDs. Future evaluation needs source-group-aware partitioning.
+- DESIGN: Explicit inference-field allowlist, separate source-rich private dossier and blank annotation sheet, unique output packages and atomic latest status. Private outputs are written without reading existing private material.
+- OPEN: Independent identity annotation, source/licence authenticity, unavailable standalone research feedback, useful natural answer-impact cases, defensible controlled attribution if needed, later QA/evidence/baseline protocols and independent Phase 2 review.
+- AI ASSISTANCE: Code, synthetic tests and documentation prepared with Codex assistance; synthetic checks are not empirical identity findings. Actual execution evidence must be reported separately, including any blockers.
+
+### Phase 2 observed execution
+
+- OBSERVED: Installed on student-created phase-two at the merged Phase 1 base; 113 repository tests pass (70 unchanged regressions plus 43 new synthetic tests).
+- OBSERVED: Two actual CLI runs discover 856,836 proposed train pairs and select 24 unlabelled natural cases (4 sparse, 4 abbreviation, 8 challenging, 8 compatible); no shortfalls. Every train graph node/edge reconciles and all three raw fingerprints remain unchanged.
+- OBSERVED: Four deterministic public artifacts and both initial private reviewer artifacts match across runs. Real success-then-missing-manifest rerun records FAILED while preserving earlier results; final repeat restores PASS. Private reviewer fields are blank, Git-ignored and never inference inputs.
+- OBSERVED LIMITATION: Selected endpoints are LOC 35, ORG 11, PER 2; shared source documents link the 24 cases into eight components. Preserve this observed bias; do not present the sample as representative or independent.
+- OBSERVED: Train 3052/dev 469 overlap is preserved and dev 469 recorded for later evaluation exclusion; no selected pair touches that group. Controlled fragmentation remains feasibility-only with zero fragments/maps/allocations.
+- OPEN: Independent Phase 2 review and human identity annotation. No QA/identity effectiveness claim or Phase 3 approval follows from technical PASS. See results/phase2/validation_record.md for exact files, commands, failures, counts, hashes and remaining decisions.
