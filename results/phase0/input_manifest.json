@@ -1,0 +1,33 @@
+{
+  "audit_script_sha256": "1d4ca460338fddf344f5139954602468667f212e1bc19fa820e4b3b52c401fa3",
+  "files": [
+    {
+      "bytes": 18602933,
+      "path": "data/raw/re_docred/data/train_revised.json",
+      "sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "sha256_after": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "split": "train"
+    },
+    {
+      "bytes": 3245588,
+      "path": "data/raw/re_docred/data/dev_revised.json",
+      "sha256": "051ee1d057204a5d08ef5502beacdadf191245b5eaf0e29ec2c607cf002c016f",
+      "sha256_after": "051ee1d057204a5d08ef5502beacdadf191245b5eaf0e29ec2c607cf002c016f",
+      "split": "dev"
+    },
+    {
+      "bytes": 3207228,
+      "path": "data/raw/re_docred/data/test_revised.json",
+      "sha256": "ea673b7ef91e16510d7eb88863d3903e47318dc5653ef361266f27ae3b84723c",
+      "sha256_after": "ea673b7ef91e16510d7eb88863d3903e47318dc5653ef361266f27ae3b84723c",
+      "split": "test"
+    }
+  ],
+  "format_version": 1,
+  "raw_directory_inventory": [
+    "data/README.md",
+    "data/dev_revised.json",
+    "data/test_revised.json",
+    "data/train_revised.json"
+  ]
+}
