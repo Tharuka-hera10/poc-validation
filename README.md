@@ -1,4 +1,4 @@
-# GIR-ER exploratory pilot — Phases 0–2
+# GIR-ER exploratory pilot — Phases 0–3
 
 This repository audits the local Re-DocRED annotations for a future entity-consolidation pilot. GIR-ER's incremental benefit is an unvalidated hypothesis. Phase 0 creates no identity labels, verified QA answers, merge decisions or performance results.
 
@@ -76,3 +76,22 @@ The source-rich review_dossier.json and blank review_worklist.csv are written un
 Compare the four deterministic public artifacts excluding run_manifest.json and both initially blank private artifacts across repeated runs. Timing, invocation metadata, latest status and unique run IDs may differ. A failure between the two package publications can leave an orphan directory; it is not latest success without the final PASS record.
 
 See [Phase 2 methodology and leakage policy](docs/phase2_candidate_methodology.md). Controlled fragmentation is feasibility-only: no fragments, private parent map, controlled pairs or reassigned edges. Identity annotation, QA workloads, merges, counterfactual effects and GIR-ER effectiveness remain unperformed. STOP after Phase 2 for independent review.
+
+## Phase 3 fixed structural QA workload
+
+```bash
+.venv/bin/python -B scripts/query_workload.py --data-dir data/raw/re_docred/data --manifest results/phase0/input_manifest.json --output-dir results/phase3 --review-dir data/private_gold/phase3
+.venv/bin/python -B -m pytest -q -p no:cacheprovider
+```
+
+Use the existing Python 3.12.15 environment and a separate phase-three branch. No dependencies are added. The original train MultiDiGraph is validated before/after query preparation. Queries follow exactly two or three outgoing relation codes through distinct vertices. Answers are unique IDs; every supporting edge-occurrence path remains traceable. Optional type constraints match the original annotated type sets by intersection. Self-loops/cycles stay in the graph but cannot satisfy simple-path queries.
+
+The frozen 12-case target reserves one candidate-endpoint query per hop, four general queries per hop and one real zero-answer diagnostic per hop. Global document/anchor and per-hop relation diversity apply; shortfalls remain explicit. Discovery and selection use train only. Dev/test never select templates; test is hashed only. Discovery/evaluation resource exhaustion is INCOMPLETE and cannot publish a complete workload.
+
+Read results/phase3/latest_run.json before following its immutable public run directory. Only PASS and matching artifact hashes establish latest success. Five deterministic public artifacts contain specifications, structural results, inventory and reports; run_manifest.json records invocation/runtime and fingerprints. A separate validation_record.md records actual checks. Initial private QA dossier/CSV snapshots are written under ignored data/private_gold/phase3/runs/<run-id>/; earlier annotations are never read or overwritten.
+
+See [query methodology](docs/phase3_query_methodology.md) and [QA review guide](docs/qa_annotation_guide.md). Blank query-level and answer-level review rows distinguish interpretation, individual triple support, composition and answer correctness. Structural answers are not gold; semantic relation meanings and independent verification remain unresolved. No natural-language questions, merging, counterfactual analysis, risk scoring or Phase 4 work is implemented. Source excerpts and private reviewer files are not cleared for publication. STOP for independent review.
+
+## Phase 3 post-review annotation supplements
+
+Run `.venv/bin/python -B scripts/prepare_qa_annotation_supplement.py` to prepare additional blank triple-level and path-composition sheets from frozen public Phase 3 results and original source. Output goes only to new ignored data/private_gold/phase3/annotation_supplements/runs/<id>/ packages; no existing private annotations are read or overwritten. The original query/answer worklist and all public Phase 3 results remain unchanged. See [review findings](docs/phase3_review_findings.md) and the [QA guide](docs/qa_annotation_guide.md). Cleanup of duplicate historical artifacts is proposed only, awaiting separate approval; no Phase 4 work is included.

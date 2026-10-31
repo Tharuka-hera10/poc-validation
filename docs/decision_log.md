@@ -66,3 +66,32 @@ Code, tests and report drafts were generated with Codex assistance. Synthetic fi
 - OBSERVED LIMITATION: Selected endpoints are LOC 35, ORG 11, PER 2; shared source documents link the 24 cases into eight components. Preserve this observed bias; do not present the sample as representative or independent.
 - OBSERVED: Train 3052/dev 469 overlap is preserved and dev 469 recorded for later evaluation exclusion; no selected pair touches that group. Controlled fragmentation remains feasibility-only with zero fragments/maps/allocations.
 - OPEN: Independent Phase 2 review and human identity annotation. No QA/identity effectiveness claim or Phase 3 approval follows from technical PASS. See results/phase2/validation_record.md for exact files, commands, failures, counts, hashes and remaining decisions.
+
+## Phase 3 approval and rule freeze
+
+- CONFIRMED: Student approved Phase 3 only and implementation plan. Current base is merged main 9c2fb77; student created phase-three after sandbox branch creation was denied. No staging, commit, push, merge, Git configuration changes or Phase 4 work.
+- CONFIRMED: Directed simple paths, exactly two/three original ordered relation codes; distinct vertices. Optional original-type intersection constraints, no inverse relations or natural-language predicate invention.
+- CONFIRMED: 12-case target: one candidate-endpoint, four general and one real zero diagnostic per hop. Candidate role first, general next, zero last; 2 hops before 3. Numeric source order, unique documents/anchors and per-hop relation sequences. Retain shortages, no answer-count or outcome retuning.
+- IMPLEMENTATION POLICY: 100000 examined occurrence extensions per document during discovery/per query during evaluation; incomplete results remain partial and cannot publish a complete workload. This is a deterministic computation cap, not a risk threshold.
+- CONFIRMED: Train-only discovery. Use only verified public Phase 2 endpoint IDs. No private identity/QA inputs; ignored Phase 3 reviewer packages are new blank snapshots.
+- OPEN: Human identity review status is not inspected. QA interpretation, triple/composition/answer verification, source permissions, authoritative relation definitions and scientific workload freeze remain unresolved. Existing source overlap and Phase 2 sample biases remain reported.
+- AI ASSISTANCE: Phase 3 code, tests and documentation generated with Codex assistance; synthetic expectations establish graph mechanics only. Actual execution evidence will be recorded separately. STOP before Phase 4.
+
+### Phase 3 observed verification
+
+- OBSERVED: Final suite: 159 passed in 1.44s, exit 0 (113 unchanged regressions plus 46 new tests). Initial fixture error and real zero-diagnostic generator-variable defect were corrected and regression-tested; verification harness corrections are recorded in results/phase3/validation_record.md.
+- OBSERVED: Actual train FULL_SPLIT reconciliation: 59359 nodes/85932 edges. Train discovery found 28585 patterns, 184983 two-hop and 320579 three-hop occurrence chains; maximum document extensions 9267, none incomplete.
+- OBSERVED: All 12 slots filled: six cases per hop, comprising two endpoint, eight general and two zero diagnostics. Structural totals: 16 query/answer pairs and 23 paths. Direct source checks reconcile all 52 returned edge positions. These are not semantic correctness measurements.
+- OBSERVED: Endpoint availability is 31/48 for 2 hops and 26/48 for 3 hops; two selected queries anchor at candidate endpoints. No inference about ER utility or merge effects is warranted.
+- OBSERVED: Final-code repository and safe separate-output runs match five deterministic public and two blank private artifacts. Real failed rerun records FAILED and preserves earlier results. New review sheets contain 12 blank query rows and 16 blank answer rows. Raw/earlier-phase/config/staging preservation checks pass.
+- OPEN: Independent Phase 3 review, human identity/QA interpretation/triple/composition/answer verification, source permissions, partitions and scientific workload freeze. Technical PASS authorizes no Phase 4, merge or risk work.
+
+## Phase 3 independent-review annotation hardening
+
+- CONFIRMED: Student authorized review corrections only at phase-three head 5bbed2d891e90111f431cb8b85ad35b864d20a0e. Frozen queries/answers/selection and all prior public results remain unchanged; no Phase 4 or Git publication.
+- STUDENT-SUPPLIED REVIEW: Original private QA packages reconcile source mentions/records, preserve two name/span warnings, have blank human fields and match across four packages. Locally recomputed public/raw counts confirm 23 paths, 52 edge positions, 42 supporting occurrences, 25 pointed/27 empty positions and only two fully pointed paths; both endpoint paths have an empty pointer.
+- IMPLEMENTED: Standalone evaluation-only supplement prepares 42 unique original-occurrence and 23 path-composition records with stable linked IDs and blank fields. Template-only edges are excluded; existing query/answer worklists are preserved. Generator reads only original source and public outputs.
+- OBSERVED: 178 tests pass (159 unchanged baseline plus 19 new). Two real runs produce byte-identical CSVs and manifests. New private packages are ignored; all 69 protected fingerprints/staging match and eight prior private files retain unchanged metadata without reading their annotation contents.
+- LIMITATION: Early-document concentration, sparse pointer coverage and unverified semantics remain. No truth labels, QA correctness or ER utility follows from these counts.
+- PROPOSED ONLY: Retain latest complete result tree and archive-index older reviewed snapshots before removing two historical run directories, subject to explicit approval. Identical inventories already share one Git blob; no deletion, history rewrite or pointer change performed.
+- OPEN: Independent correction review and human identity/triple/composition/answer adjudication. See docs/phase3_review_findings.md for actual commands, output hashes, exact changes and deferred cleanup. STOP before Phase 4.
