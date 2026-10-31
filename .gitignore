@@ -1,6 +1,5 @@
 .venv
 .idea
-data/private_gold/
 results/phase0/pattern_inventory.json
 results/phase0/environment.json
 docs/research_context
