@@ -38,3 +38,21 @@ Edges are directed `(h,r,t)` triples. Identical typed triples collapse only in t
 `structural_paths` counts deduplicated typed paths. `relation_occurrence_paths` weights each path by the product of edge multiplicities. `all_edges_pointed_occurrence_paths` uses the product of the number of nonempty-evidence occurrences per edge. It counts pointer availability only. Examples prefer the first pointed occurrence of each edge, otherwise the first occurrence. Repeated-vertex extensions are counted and excluded; they are not reported as cycle path totals. Self-relations are counted independently in dataset statistics.
 
 Inspection follows ascending entity and `(h,r,t)` order, document order, then train/dev split order. Counts and examples are reproducible. A cap limits attempted extensions per document; a partial inventory is explicitly INCOMPLETE. There is no cross-document adjacency or inverse-edge synthesis. These paths are not semantic entailments, proposed QA templates or verified answers.
+
+## Phase 1 graph contract, version 1
+
+The Phase 0 schema and findings above remain unchanged. Phase 1 reuses its strict loader and validator without pattern discovery. A validation error aborts construction of the split; warnings remain visible. Absent evidence is a warning and stays absent, empty lists stay empty, and malformed/null/out-of-range evidence is rejected.
+
+Graph nodes represent original document-scoped entity groups; IDs are `split:document_index:entity_index`. Each node stores `source_mentions` (deep-copied original mention dictionaries) and separate `provenance` containing split, original indices, document ID/title, raw-file fingerprint and canonical parsed-document fingerprint.
+
+Edges represent original relation occurrences. Keys are `split:document_index:label_index`; `(u,v,key)` identifies the directed occurrence. Attributes are `source_relation` (deep-copied complete relation dictionary), `relation` (original code), `evidence_availability` (absent/empty/nonempty), and `provenance` (document context plus original label/head/tail indices). Edge keys may resemble node IDs but occupy a separate NetworkX namespace. No source field is overwritten by derived metadata.
+
+Graph metadata records split, source fingerprint, document scope, per-document fingerprints and copied warnings. Loaded source documents remain outside the graph. `SourceSplit` is the external lookup returned by the verified file loader; it is a frozen record containing mutable original documents. Callers should not modify them. Graph attribute and reconstruction-result mutations cannot change them. Direct document construction trusts its caller-supplied fingerprint; only file loading verifies raw bytes against the manifest.
+
+Full validation visits every expected node and edge, compares exact JSON values/types and provenance, then rejects unexpected nodes/edges. It detects wrong topology even when totals match. Canonical JSON comparison distinguishes booleans from numbers. Original dictionary field order is not a semantic acceptance condition; list ordering and original values are preserved.
+
+`reconstruct_edge_source` verifies graph/source split, raw-file fingerprint, document scope/hash, edge identifiers, relation and endpoint records. It returns the original relation, original mention dictionaries, sentence tokens, mention-span tokens and evidence sentence arrays in original pointer order. It does not infer sentence whitespace or identity truth.
+
+The bounded demonstration uses the first train document containing a relation and its first at most three labels. It displays up to two mentions per endpoint and three evidence references per relation with omission counts. A `rendered_view` is a token-joined display only. Other splits undergo integrity verification without example or workload selection.
+
+Phase 1 outputs are graph_summary.json, provenance_demo.json, run_manifest.json and phase1_report.md under results/phase1/. A separate validation_record.md records actual tests/repeated-run checks. Graphs are reconstructed in memory, not exported in full.
