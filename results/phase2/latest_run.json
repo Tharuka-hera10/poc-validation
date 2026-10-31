@@ -1,0 +1,19 @@
+{
+  "artifact_sha256": {
+    "candidate_feasibility_report.md": "a87c0a3ae0e015d6397778cf10ef99962648dab10e49b914ef12a63a1eab007c",
+    "candidate_inventory.json": "ecbadf339811ac5c75b921c57379a4eb65307d97aec7bcb0004cb94318310576",
+    "candidates_train.json": "3585ca9f328aece3c6b158367bdc219d5252e6575b66b74a38a09fa6e52f1dcb",
+    "phase2_report.md": "8351302803ee2cfa3ef9c529f9305b7d245aad3e0ab819c284deeed59a8b2245",
+    "run_manifest.json": "693d5c823cc197400ab3eb3f0a169676e9fb8b29416d31128e7358fc35c088ed"
+  },
+  "error": null,
+  "format_version": 1,
+  "review_artifact_sha256": {
+    "review_dossier.json": "56ae3b488931d7d8f23d59b1b40acc8ee1e7663b70ea4dcecff2fe99467dfbd8",
+    "review_worklist.csv": "f675701dd08a66146dcabb99c28d4e66cde6eccd9f3cf31b9e2c5436b01c855f"
+  },
+  "review_directory": "data/private_gold/phase2/runs/4f974b4911804c1db29777c7e6d1177f",
+  "run_directory": "runs/4f974b4911804c1db29777c7e6d1177f",
+  "run_id": "4f974b4911804c1db29777c7e6d1177f",
+  "status": "PASS"
+}
