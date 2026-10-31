@@ -5,9 +5,12 @@ from collections import Counter
 from copy import deepcopy
 from dataclasses import dataclass
 import json
+import os
 from pathlib import Path
 import platform
 import sys
+import tempfile
+from uuid import uuid4
 
 import networkx as nx
 
@@ -17,7 +20,7 @@ if __package__ in (None, ""):
 from scripts.audit_dataset import SPLITS, digest, encoded, evidence_kind, load_json, validate
 
 
-FORMAT_VERSION = 1
+FORMAT_VERSION = 2
 EXPECTED = {
     "train": {"nodes": 59359, "edges": 85932, "nonempty": 47260, "empty": 38672, "absent": 0},
     "dev": {"nodes": 9684, "edges": 17284, "nonempty": 7473, "empty": 9811, "absent": 0},
@@ -153,8 +156,11 @@ def check_context(graph, source):
     return indices
 
 
-def validate_graph_provenance(graph, source):
+def validate_graph_provenance(graph, source, *, require_full_split=False):
     indices = check_context(graph, source)
+    full_split = bool(source.documents) and set(indices) == set(range(len(source.documents)))
+    require(not require_full_split or full_split,
+            f"Full-split validation requires all {len(source.documents)} source documents; declared {len(indices)}")
     expected_nodes, expected_edges = 0, 0
     evidence = Counter(nonempty=0, empty=0, absent=0)
     for di in indices:
@@ -179,7 +185,9 @@ def validate_graph_provenance(graph, source):
     require(graph.number_of_edges() == expected_edges, "Edge reconciliation failed: unexpected edges")
     return {"nodes": expected_nodes, "edges": expected_edges, **evidence,
             "nodes_validated": expected_nodes, "edges_validated": expected_edges,
-            "documents_validated": len(indices), "provenance_status": "PASS"}
+            "documents_validated": len(indices), "documents_available": len(source.documents),
+            "full_split": full_split, "validation_scope": "FULL_SPLIT" if full_split else "SUBSET",
+            "provenance_status": "PASS"}
 
 
 def reconstruct_edge_source(graph, u, v, key, source):
@@ -247,11 +255,40 @@ def check_output_dir(data_dir, manifest_path, output_dir):
     require("private_gold" not in out.parts, "private_gold is evaluation-only")
     roots = [data, root / "data" / "raw", root / "results" / "phase0",
              *(p for p in data.parents if p.name in ("raw", "re_docred"))]
+    if Path(manifest_path).resolve().parent.name == "phase0":
+        roots.append(Path(manifest_path).resolve().parent)
     require(not any(out == p or out.is_relative_to(p) for p in roots), "Output must be outside raw data and Phase 0 outputs")
-    for name in ("graph_summary.json", "provenance_demo.json", "run_manifest.json", "phase1_report.md"):
+    for name in ("graph_summary.json", "provenance_demo.json", "run_manifest.json", "phase1_report.md", "latest_run.json", "runs"):
         target = out / name
         require(not target.is_symlink(), f"Output symlink is not accepted: {target}")
         require(target.resolve() != Path(manifest_path).resolve(), "Cannot overwrite input manifest")
+
+
+def write_latest(output_dir, status):
+    """Replace the single authoritative attempt record atomically on the same filesystem."""
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=output_dir,
+                                     prefix=".latest-", suffix=".json", delete=False) as handle:
+        json.dump(status, handle, ensure_ascii=False, sort_keys=True, indent=2)
+        handle.write("\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(handle.name, output_dir / "latest_run.json")
+
+
+def publish_run(output_dir, run_id, summary, demo, versions):
+    """Expose all artifacts together; a separate latest PASS commits the complete run."""
+    pending = Path(tempfile.mkdtemp(prefix=f".pending-{run_id}-", dir=output_dir))
+    for name, value in (("graph_summary", summary), ("provenance_demo", demo), ("run_manifest", versions)):
+        (pending / f"{name}.json").write_text(json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+    (pending / "phase1_report.md").write_text(report(summary, demo), encoding="utf-8")
+    hashes = {p.name: digest(p.read_bytes()) for p in sorted(pending.iterdir())}
+    runs = output_dir / "runs"
+    require(not runs.is_symlink(), "Output symlink is not accepted: runs")
+    runs.mkdir(exist_ok=True)
+    destination = runs / run_id
+    require(not destination.exists(), f"Run directory already exists: {destination}")
+    pending.rename(destination)
+    return destination, hashes
 
 
 def report(summary, demo):
@@ -261,7 +298,8 @@ def report(summary, demo):
     for split, s in summary["splits"].items():
         lines.append(f"| {split} | {s['nodes_validated']} | {s['edges_validated']} | {s['nonempty']} | {s['empty']} | {s['absent']} |")
     lines += ["", "Every node and edge was compared with its original annotation, including nested source values and provenance. "
-              "Counts matched both Phase 0 expectations and source-derived mappings. Input hashes matched before and after construction.", "",
+              "Strict FULL_SPLIT validation covered every source document. Counts matched both Phase 0 expectations and source-derived mappings. "
+              "Input hashes matched before and after construction.", "",
               f"Warnings by split: `{encoded({k: v['warning_counts'] for k, v in summary['splits'].items()})}`.", "",
               f"Train demonstration: document {demo['document_index']} ({demo['title']}), {len(demo['examples'])} original relation records. "
               "See provenance_demo.json for node identifiers, source labels, mentions and sentence tokens.", "",
@@ -281,8 +319,15 @@ def report(summary, demo):
               "## Reproduce", "", "```bash",
               ".venv/bin/python -B scripts/build_graph.py --data-dir data/raw/re_docred/data --manifest results/phase0/input_manifest.json --output-dir results/phase1",
               ".venv/bin/python -B -m pytest -q -p no:cacheprovider", "```", "",
-              "See validation_record.md for actual test output, repeated-run comparison and final repository integrity checks. "
+              "See ../../validation_record.md for actual test output, repeated-run comparison and final repository integrity checks. "
               "run_manifest.json records the invocation, input hashes and implementation versions. Machine-specific metadata is not required to be byte-identical.", "",
+              "## Execution status contract", "",
+              "This is an immutable completed-run artifact. Check ../../latest_run.json for the latest recorded attempt: "
+              "only PASS with a completed run_directory and matching artifact hashes establishes latest-attempt success. "
+              "RUNNING, FAILED, a missing record or an unreadable record does not. Earlier top-level Phase 1 files are historical. "
+              "Publication stages all four artifacts in a hidden directory, renames it into runs/, then atomically publishes PASS. "
+              "A crash before that final status may leave an uncommitted directory; it is not an authoritative successful attempt. "
+              "Use one writer per output directory; concurrent executions require separate output directories.", "",
               "Phase 2 requires student approval plus review of genuine identity evidence, permitted inputs, private-map safeguards, "
               "annotation protocol and partition policy. No candidate work was started. STOP.", ""]
     return "\n".join(lines)
@@ -294,8 +339,17 @@ def main(argv=None):
     parser.add_argument("--manifest", type=Path, default=Path("results/phase0/input_manifest.json"))
     parser.add_argument("--output-dir", type=Path, default=Path("results/phase1"))
     args = parser.parse_args(argv)
+    attempt = None
+    stage = "output_preflight"
     try:
         check_output_dir(args.data_dir, args.manifest, args.output_dir)
+        args.output_dir.mkdir(parents=True, exist_ok=True)
+        attempt = {"format_version": FORMAT_VERSION, "run_id": uuid4().hex,
+                   "status": "RUNNING", "run_directory": None, "error": None,
+                   "command": sys.orig_argv if argv is None else [sys.executable, str(Path(__file__)), *argv]}
+        stage = "status_initialization"
+        write_latest(args.output_dir, attempt)
+        stage = "load_manifest"
         manifest = load_json(source_path(args.manifest).read_bytes())
         phase0_path = source_path(args.manifest.parent / "dataset_audit.json")
         phase0 = load_json(phase0_path.read_bytes())
@@ -303,10 +357,11 @@ def main(argv=None):
         summary = {"format_version": FORMAT_VERSION, "status": "PASS", "splits": {}}
         fingerprints, demo = {}, None
         for split in SPLITS:
+            stage = f"construct_and_validate:{split}"
             source = load_split(args.data_dir, split, manifest)
             require(phase0["input_fingerprints"][split] == source.sha256, f"Phase 0 audit fingerprint mismatch: {split}")
             graph = build_split_graph(source)
-            counts = validate_graph_provenance(graph, source)
+            counts = validate_graph_provenance(graph, source, require_full_split=True)
             for name, expected in EXPECTED[split].items():
                 require(counts[name] == expected, f"Acceptance count mismatch for {split}.{name}: {counts[name]} != {expected}")
             original = phase0["splits"][split]
@@ -320,6 +375,7 @@ def main(argv=None):
             if split == "train":
                 demo = make_demo(graph, source)
             del graph, source
+        stage = "source_integrity"
         for split, entry in fingerprints.items():
             entry["sha256_after"] = digest(Path(entry["path"]).read_bytes())
             require(entry["sha256_after"] == entry["sha256_before"], f"Source changed during execution: {split}")
@@ -329,16 +385,26 @@ def main(argv=None):
                     "inputs": fingerprints, "phase0_manifest_sha256": digest(args.manifest.read_bytes()),
                     "phase0_audit_sha256": digest(phase0_path.read_bytes()),
                     "implementation_sha256": {p.name: digest(p.read_bytes()) for p in (Path(__file__), Path(__file__).with_name("audit_dataset.py"))}}
-        args.output_dir.mkdir(parents=True, exist_ok=True)
-        for name, value in (("graph_summary", summary), ("provenance_demo", demo), ("run_manifest", versions)):
-            (args.output_dir / f"{name}.json").write_text(json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n", encoding="utf-8")
-        (args.output_dir / "phase1_report.md").write_text(report(summary, demo), encoding="utf-8")
+        stage = "artifact_publication"
+        destination, hashes = publish_run(args.output_dir, attempt["run_id"], summary, demo, versions)
+        stage = "success_status_publication"
+        write_latest(args.output_dir, {**attempt, "status": "PASS",
+                                      "run_directory": destination.relative_to(args.output_dir).as_posix(),
+                                      "artifact_sha256": hashes})
     except (ValueError, OSError, KeyError, TypeError, IndexError) as exc:
+        if attempt is not None and stage != "status_initialization":
+            try:
+                write_latest(args.output_dir, {**attempt, "status": "FAILED",
+                                              "error": {"stage": stage, "type": type(exc).__name__, "reason": str(exc)}})
+            except OSError as status_exc:
+                print(f"Could not record failed attempt: {status_exc}; no new PASS established", file=sys.stderr)
+        elif stage == "status_initialization":
+            print("Could not initialize latest-run status; no new attempt recorded", file=sys.stderr)
         print(f"Phase 1 failed: {exc}", file=sys.stderr)
         return 1
     for split, s in summary["splits"].items():
         print(f"{split}: {s['nodes_validated']} nodes, {s['edges_validated']} edges validated; provenance PASS")
-    print(f"Phase 1 PASS; all source hashes unchanged; outputs: {args.output_dir}")
+    print(f"Phase 1 PASS; all source hashes unchanged; outputs: {destination}")
     return 0
 
 

@@ -1,0 +1,41 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/python@3.12/3.12.15/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python",
+    "-B",
+    "scripts/build_graph.py",
+    "--data-dir",
+    "data/raw/re_docred/data",
+    "--manifest",
+    "results/phase0/input_manifest.json",
+    "--output-dir",
+    "results/phase1"
+  ],
+  "executable": "/Users/tharuka.herath/Downloads/KG/risk aware/poc/.venv/bin/python",
+  "format_version": 2,
+  "implementation_sha256": {
+    "audit_dataset.py": "1d4ca460338fddf344f5139954602468667f212e1bc19fa820e4b3b52c401fa3",
+    "build_graph.py": "29a011ba38edeffc696c1b532acfbcb9f11a48e8dada82db7ba8e319616c81d5"
+  },
+  "inputs": {
+    "dev": {
+      "path": "data/raw/re_docred/data/dev_revised.json",
+      "sha256_after": "051ee1d057204a5d08ef5502beacdadf191245b5eaf0e29ec2c607cf002c016f",
+      "sha256_before": "051ee1d057204a5d08ef5502beacdadf191245b5eaf0e29ec2c607cf002c016f"
+    },
+    "test": {
+      "path": "data/raw/re_docred/data/test_revised.json",
+      "sha256_after": "ea673b7ef91e16510d7eb88863d3903e47318dc5653ef361266f27ae3b84723c",
+      "sha256_before": "ea673b7ef91e16510d7eb88863d3903e47318dc5653ef361266f27ae3b84723c"
+    },
+    "train": {
+      "path": "data/raw/re_docred/data/train_revised.json",
+      "sha256_after": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "sha256_before": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2"
+    }
+  },
+  "networkx": "3.7",
+  "phase0_audit_sha256": "bb672fa96988c560a1db2c7c8eab483764e708de897eb10754172486cf913b68",
+  "phase0_manifest_sha256": "4a366da1132d56cd5ac8d9553dce723e697a35fbdfb8832f34e0f85c26e7853b",
+  "platform": "macOS-26.7.1-arm64-arm-64bit",
+  "python": "3.12.15 (main, Sep 30 2026, 22:04:19) [Clang 21.0.0 (clang-2100.3.34.2)]"
+}

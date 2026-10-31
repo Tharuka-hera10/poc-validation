@@ -79,3 +79,115 @@ Deep copies increase memory use but isolate graph attributes from source documen
 Phase 1 builds graphs of annotations, not verified facts, and does not test GIR-ER's incremental benefit. Before Phase 2, the student must approve case preparation, review genuine identity evidence and private-label/fragment-map safeguards, and address relevant review conditions and partition/annotation decisions. No candidate generation, fragmentation, merging, counterfactual analysis, risk scoring or verified QA was implemented.
 
 **STOP. Phase 1 complete; Phase 2 requires explicit student approval.**
+
+
+## Post-review corrections — output contract v2 and explicit scope
+
+This section supersedes the earlier flat-output execution contract while preserving the historical evidence above. The student supplied the independent Phase 1 PASS WITH CONDITIONS findings and approved only the two corrections. No Phase 2 work was done.
+
+### Confirmed issues and chosen fixes
+
+A failed rerun previously left earlier PASS artifacts in place without recording its failure. Each new accepted build attempt now atomically writes latest_run.json RUNNING before reading inputs, stages four artifacts in a hidden directory, atomically renames the completed directory into runs/<unique-id>/, and commits a latest PASS with relative run path and artifact hashes. Handled failures record FAILED with stage/type/reason and no successful-run reference. The existing top-level results are historical snapshots and were not overwritten. Only the latest status plus its complete referenced artifacts establishes latest recorded success. This avoids replacing or deleting verified research results.
+
+validate_graph_provenance now accepts keyword-only require_full_split=False and returns FULL_SPLIT/SUBSET, full_split, documents_available and documents_validated. Document/subset validation remains supported. The CLI uses True and rejects partial coverage even if all declared records and counts are consistent. Malformed/empty/duplicate/boolean/out-of-range scope cannot establish strict full-split success. Graph construction and evidence semantics are unchanged.
+
+### Actual tests
+
+```bash
+.venv/bin/python -B -m pytest -q -p no:cacheprovider
+```
+
+Final output: `70 passed in 0.87s`, exit 0 (historical baseline: 51). The first correction run passed 65 tests; five more protected-path/publication-failure checks were added, and the final 70 passed. No unexpected failures occurred. Expected failures cover missing/malformed manifests, a dev acceptance failure after train processing, partial artifact publication, final status-publication failure, interrupted RUNNING, unwritable status initialization, protected paths and symlink redirects. Tests also verify immutable earlier results, repeated deterministic output, internally consistent subsets rejected by strict validation, and malformed scopes.
+
+### Actual real-data execution and reproducibility
+
+The following command executed successfully twice in the repository output location, both exit 0:
+
+```bash
+.venv/bin/python -B scripts/build_graph.py --data-dir data/raw/re_docred/data --manifest results/phase0/input_manifest.json --output-dir results/phase1
+```
+
+Both runs validated every original node and edge, not just totals:
+
+| Split | Scope | Documents | Nodes | Edges | Nonempty pointers | Empty pointers |
+|---|---|---:|---:|---:|---:|---:|
+| Train | FULL_SPLIT | 3053 | 59359 | 85932 | 47260 | 38672 |
+| Dev | FULL_SPLIT | 500 | 9684 | 17284 | 7473 | 9811 |
+| Test | FULL_SPLIT | 500 | 9779 | 17448 | 7547 | 9901 |
+
+Absent evidence was zero in each split. Original name/span warnings remained 1821/284/317. All source hashes matched before and after. Graph invariants, original source values and provenance round trips remained valid.
+
+Completed repository run directories:
+
+- `runs/ed510ef8f14b491b99291a104f4b61fd`
+- `runs/5e2ac858263244c39f5a352b5804eefd`
+
+The following deterministic artifact hashes matched byte-for-byte across both completed runs. Status IDs and machine metadata were excluded from deterministic comparison.
+
+| Artifact | SHA-256 in both runs |
+|---|---|
+| graph_summary.json | `dfa9af63a4ead101a8730ff73a8f48bbca9aa5c99ae84db8b07818bc87d57886` |
+| provenance_demo.json | `f239b48ed3a80b3526c273555712c5d393a9c914882c19551aca0c453502546c` |
+| phase1_report.md | `ac6feac78c7cf30b1d33633a631a85503fc4e5bacb7252edfcf4cb6bb374c630` |
+
+### Stale-PASS CLI regression on real data
+
+A separate temporary output location was used to avoid marking the repository's final run failed. Actual commands and observed outputs:
+
+```text
+/Users/tharuka.herath/Downloads/KG/risk aware/poc/.venv/bin/python -B scripts/build_graph.py --data-dir data/raw/re_docred/data --manifest results/phase0/input_manifest.json --output-dir /var/folders/j8/lzvjf1bn667_4z3tk_r4r0sw0000gr/T/girer-stale-pass-ro0ami0p/outputs
+Exit: 0
+train: 59359 nodes, 85932 edges validated; provenance PASS
+dev: 9684 nodes, 17284 edges validated; provenance PASS
+test: 9779 nodes, 17448 edges validated; provenance PASS
+Phase 1 PASS; all source hashes unchanged; outputs: /var/folders/j8/lzvjf1bn667_4z3tk_r4r0sw0000gr/T/girer-stale-pass-ro0ami0p/outputs/runs/db3aea6cd3e64288bf8ff51e06e30dda
+```
+
+```text
+/Users/tharuka.herath/Downloads/KG/risk aware/poc/.venv/bin/python -B scripts/build_graph.py --data-dir data/raw/re_docred/data --manifest /var/folders/j8/lzvjf1bn667_4z3tk_r4r0sw0000gr/T/girer-stale-pass-ro0ami0p/missing_manifest.json --output-dir /var/folders/j8/lzvjf1bn667_4z3tk_r4r0sw0000gr/T/girer-stale-pass-ro0ami0p/outputs
+Exit: 1
+Phase 1 failed: [Errno 2] No such file or directory: '/var/folders/j8/lzvjf1bn667_4z3tk_r4r0sw0000gr/T/girer-stale-pass-ro0ami0p/missing_manifest.json'
+```
+
+Latest status after failure:
+
+```json
+{
+  "command": [
+    "/opt/homebrew/Cellar/python@3.12/3.12.15/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python",
+    "-B",
+    "scripts/build_graph.py",
+    "--data-dir",
+    "data/raw/re_docred/data",
+    "--manifest",
+    "/var/folders/j8/lzvjf1bn667_4z3tk_r4r0sw0000gr/T/girer-stale-pass-ro0ami0p/missing_manifest.json",
+    "--output-dir",
+    "/var/folders/j8/lzvjf1bn667_4z3tk_r4r0sw0000gr/T/girer-stale-pass-ro0ami0p/outputs"
+  ],
+  "error": {
+    "reason": "[Errno 2] No such file or directory: '/var/folders/j8/lzvjf1bn667_4z3tk_r4r0sw0000gr/T/girer-stale-pass-ro0ami0p/missing_manifest.json'",
+    "stage": "load_manifest",
+    "type": "FileNotFoundError"
+  },
+  "format_version": 2,
+  "run_directory": null,
+  "run_id": "83e65c379c844e4f8b369f9db8215ba6",
+  "status": "FAILED"
+}
+```
+
+The previous successful run's four files remained byte-identical. The failed attempt referenced no successful run_directory. This resolves the demonstrated stale-PASS scenario; it does not claim that an older embedded summary PASS is itself invalid historical evidence.
+
+### Preservation, changed files and limitations
+
+Before corrections, SHA-256 baselines covered the Git index, .gitignore, raw JSON, Phase 0 code/tests/results and historical Phase 1 outputs. All matched after execution before this append. This file's original bytes remain intact as the historical prefix. The four original top-level builder artifacts remain byte-identical. Git staging is unchanged. No dependencies, configuration, source data, private gold or Phase 0 files were modified. git diff --check exited 0.
+
+Modified: scripts/build_graph.py, tests/test_build_graph.py, README.md, docs/data_dictionary.md, docs/decision_log.md, and this validation_record.md. Created: latest_run.json plus the four artifacts in each of the two repository run directories listed above. Historical phase1_report.md is preserved; revised reports are in the immutable runs.
+
+Output format is now version 2. Consumers must read latest_run.json first and follow its run_directory. Graph summary scope fields are additive; graph source data, IDs, edge occurrence preservation and the provenance demonstration are unchanged. No full graph dumps were produced.
+
+One writer per output directory is required. Interrupted or failed publication may leave hidden partial files or an uncommitted completed directory; these are not latest successful results. Unsafe output paths are rejected without writes. If the output/status cannot be initialized, the CLI aborts before loading inputs and reports that no new attempt was recorded. Argument syntax errors likewise precede build-attempt recording. An unreadable/missing/non-PASS latest status is not evidence of current success; an old recorded status cannot be attributed to an invocation that failed before recording. Atomic process-visible publication is not an all-storage/power-loss durability guarantee.
+
+Recommendation: both reviewed technical correction conditions pass the implemented regression and real-data checks. Phase 1 is ready for independent closure review. Do not treat this as final reviewer sign-off or approval of Phase 2. Licence/authenticity, relation semantics, train/dev overlap policy, independently checked identity/QA references and other research limitations remain unresolved. No GIR-ER effectiveness claim is made.
+
+**STOP after Phase 1 corrections. Phase 2 requires independent review and explicit student approval.**

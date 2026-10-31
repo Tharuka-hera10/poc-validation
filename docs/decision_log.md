@@ -35,3 +35,13 @@ The table above records Phase 0 status and is retained as history. The student s
 Phase 1 execution observed exact reconciliation on train/dev/test: 78,822 nodes and 120,664 edges validated individually. All 51 applicable tests passed. Raw JSON fingerprints remained unchanged. Final repeated-run and staging-integrity evidence is recorded in results/phase1/validation_record.md. These observations establish software/provenance correctness on the supplied annotations, not independent factual verification or GIR-ER effectiveness.
 
 Code, tests and report drafts were generated with Codex assistance. Synthetic fixtures test mechanics only and are not research observations. No supervisor approval of a risk rule, final dataset or empirical improvement is asserted.
+
+## Phase 1 post-review corrections
+
+- STUDENT-PROVIDED REVIEW: Phase 1 PASS WITH CONDITIONS, confirming original counts/provenance/reproducibility, with two correction requests: stale successful artifacts after a failed rerun and insufficiently explicit validation scope.
+- CONFIRMED: Student approved only these corrections and the reviewed implementation plan; no Phase 2, source/Phase 0 changes, configuration edits, staging or commits.
+- IMPLEMENTED: Immutable run directories, atomic RUNNING/FAILED/PASS latest_run.json and staged directory publication. Earlier top-level outputs remain historical; users determine latest-attempt success through the status record and its referenced artifacts/hashes.
+- IMPLEMENTED: Optional keyword-only require_full_split=False preserves document/subset validation; returned scope is explicit. The full-dataset CLI uses True and rejects consistent partial coverage.
+- LIMITATION: One writer per output directory. Unsafe/unwritable output preflight may prevent recording a new attempt; stderr/exit status then remain authoritative for that invocation. Power/storage-loss durability is not guaranteed.
+- OPEN: Independent review of corrected code and evidence before declaring Phase 1 conditions finally closed. Research limitations and Phase 2 approval gates remain unchanged.
+- OBSERVED: All 70 applicable tests pass. Two real-data repository runs validate FULL_SPLIT provenance for all 78,822 nodes and 120,664 edges; three deterministic artifacts match byte-for-byte. The real-data success-then-missing-manifest regression records FAILED without changing prior results. Source/Phase 0/configuration/staging preservation checks pass. Detailed commands and hashes are appended to results/phase1/validation_record.md. These observations support closure review of the two technical conditions, not Phase 2 approval or GIR-ER effectiveness.

@@ -11,10 +11,10 @@
     "results/phase1"
   ],
   "executable": "/Users/tharuka.herath/Downloads/KG/risk aware/poc/.venv/bin/python",
-  "format_version": 1,
+  "format_version": 2,
   "implementation_sha256": {
     "audit_dataset.py": "1d4ca460338fddf344f5139954602468667f212e1bc19fa820e4b3b52c401fa3",
-    "build_graph.py": "377ab7ac5e7d87cf8472b732dd9d9cad12dc8567d173125960edc946889a188e"
+    "build_graph.py": "29a011ba38edeffc696c1b532acfbcb9f11a48e8dada82db7ba8e319616c81d5"
   },
   "inputs": {
     "dev": {

@@ -240,7 +240,8 @@ def test_malformed_provenance_has_informative_errors():
         validate_graph_provenance(g, s)
 
 
-def test_cli_reconciles_and_fails_without_outputs_on_count_mismatch(tmp_path, monkeypatch):
+@pytest.fixture
+def cli_case(tmp_path, monkeypatch):
     from scripts import build_graph as module
     folder = tmp_path / "data" / "raw" / "re_docred" / "data"
     folder.mkdir(parents=True)
@@ -263,12 +264,189 @@ def test_cli_reconciles_and_fails_without_outputs_on_count_mismatch(tmp_path, mo
     monkeypatch.setattr(module, "EXPECTED", expected)
     out = tmp_path / "out"
     args = ["--data-dir", str(folder), "--manifest", str(manifest), "--output-dir", str(out)]
+    return args, expected
+
+
+def completed_run(out):
+    latest = json.loads((out / "latest_run.json").read_text())
+    assert latest["status"] == "PASS"
+    run = out / latest["run_directory"]
+    assert {p.name: digest(p.read_bytes()) for p in run.iterdir()} == latest["artifact_sha256"]
+    return run
+
+
+def test_cli_reconciles_and_fails_without_outputs_on_count_mismatch(cli_case, tmp_path):
+    args, expected = cli_case
+    out = Path(args[-1])
     assert main(args) == 0
+    first = completed_run(out)
     deterministic = ("graph_summary.json", "provenance_demo.json", "phase1_report.md")
-    before = {n: (out / n).read_bytes() for n in deterministic}
+    before = {n: (first / n).read_bytes() for n in deterministic}
     assert main(args) == 0
-    assert {n: (out / n).read_bytes() for n in deterministic} == before
+    second = completed_run(out)
+    assert first != second
+    assert {n: (second / n).read_bytes() for n in deterministic} == before
+    assert {n: (first / n).read_bytes() for n in deterministic} == before
     expected["train"]["nodes"] = 99
     args[-1] = str(tmp_path / "failed")
     assert main(args) == 1
-    assert not (tmp_path / "failed").exists()
+    failed = json.loads((tmp_path / "failed" / "latest_run.json").read_text())
+    assert failed["status"] == "FAILED" and failed["run_directory"] is None
+    assert "Acceptance count mismatch" in failed["error"]["reason"]
+    assert not (tmp_path / "failed" / "runs").exists()
+
+
+@pytest.mark.parametrize("bad_manifest", [None, "{", '{"files":null}', '[]'])
+def test_success_then_manifest_failure_preserves_previous_results(cli_case, tmp_path, bad_manifest):
+    args, _ = cli_case
+    out = Path(args[-1])
+    assert main(args) == 0
+    first = completed_run(out)
+    previous = {p.name: p.read_bytes() for p in first.iterdir()}
+    legacy = out / "graph_summary.json"
+    legacy.write_text('{"status":"PASS","historical":true}')
+    legacy_bytes = legacy.read_bytes()
+    manifest = tmp_path / "bad_manifest.json"
+    if bad_manifest is not None:
+        manifest.write_text(bad_manifest)
+    args[3] = str(manifest)
+    assert main(args) == 1
+    failed = json.loads((out / "latest_run.json").read_text())
+    assert failed["status"] == "FAILED" and failed["run_directory"] is None
+    assert failed["error"]["stage"] == "load_manifest" and failed["error"]["reason"]
+    assert {p.name: p.read_bytes() for p in first.iterdir()} == previous
+    assert legacy.read_bytes() == legacy_bytes
+
+
+def test_failure_after_train_processing_does_not_publish_partial_success(cli_case):
+    args, expected = cli_case
+    out = Path(args[-1])
+    assert main(args) == 0
+    first = completed_run(out)
+    expected["dev"]["edges"] = 99
+    assert main(args) == 1
+    failed = json.loads((out / "latest_run.json").read_text())
+    assert failed["status"] == "FAILED"
+    assert failed["error"]["stage"] == "construct_and_validate:dev"
+    assert list((out / "runs").iterdir()) == [first]
+
+
+def test_partial_publication_is_not_visible_as_completed_run(cli_case, monkeypatch):
+    args, _ = cli_case
+    out = Path(args[-1])
+    assert main(args) == 0
+    first = completed_run(out)
+    original = Path.write_text
+    def fail_during_publication(path, *a, **kw):
+        if path.name == "provenance_demo.json" and path.parent.name.startswith(".pending-"):
+            raise OSError("injected publication failure")
+        return original(path, *a, **kw)
+    monkeypatch.setattr(Path, "write_text", fail_during_publication)
+    assert main(args) == 1
+    failed = json.loads((out / "latest_run.json").read_text())
+    assert failed["status"] == "FAILED" and failed["run_directory"] is None
+    assert failed["error"]["stage"] == "artifact_publication"
+    assert list((out / "runs").iterdir()) == [first]
+    assert list(out.glob(".pending-*"))
+
+
+def test_running_state_precedes_input_read_and_interruption_is_not_pass(cli_case, monkeypatch):
+    from scripts import build_graph as module
+    args, _ = cli_case
+    out = Path(args[-1])
+    assert main(args) == 0
+    def interrupted(*a, **kw):
+        assert json.loads((out / "latest_run.json").read_text())["status"] == "RUNNING"
+        raise KeyboardInterrupt
+    monkeypatch.setattr(module, "load_json", interrupted)
+    with pytest.raises(KeyboardInterrupt):
+        main(args)
+    assert json.loads((out / "latest_run.json").read_text())["status"] == "RUNNING"
+
+
+@pytest.mark.parametrize("name", ["latest_run.json", "runs"])
+def test_status_and_run_directory_symlinks_cannot_write_to_source(cli_case, tmp_path, name):
+    args, _ = cli_case
+    out = Path(args[-1])
+    out.mkdir()
+    protected = Path(args[1])
+    before = {p.name: p.read_bytes() for p in protected.iterdir()}
+    target = protected if name == "runs" else protected / "train_revised.json"
+    (out / name).symlink_to(target)
+    assert main(args) == 1
+    assert {p.name: p.read_bytes() for p in protected.iterdir()} == before
+
+
+def test_full_split_and_consistent_subset_are_distinct():
+    s = source([document(), document()])
+    g = build_split_graph(s)
+    result = validate_graph_provenance(g, s, require_full_split=True)
+    assert result["full_split"] and result["validation_scope"] == "FULL_SPLIT"
+    assert result["documents_available"] == result["documents_validated"] == 2
+    subset = build_document_graph(s.documents[0], "train", 0, s.sha256)
+    result = validate_graph_provenance(subset, s)
+    assert not result["full_split"] and result["validation_scope"] == "SUBSET"
+    assert result["documents_validated"] == 1 and result["documents_available"] == 2
+    assert result["nodes_validated"] == 2 and result["edges_validated"] == 1
+    with pytest.raises(ValueError, match="Full-split validation requires"):
+        validate_graph_provenance(subset, s, require_full_split=True)
+    empty = nx.MultiDiGraph(split=s.split, source_sha256=s.sha256, document_indices=(), document_hashes={})
+    assert validate_graph_provenance(empty, s)["validation_scope"] == "SUBSET"
+    with pytest.raises(ValueError, match="Full-split"):
+        validate_graph_provenance(empty, s, require_full_split=True)
+
+
+@pytest.mark.parametrize("indices", [(0, 0), (True, 1), (-1, 1), (0, 2)])
+def test_malformed_scope_cannot_claim_full_split(indices):
+    s = source([document(), document()])
+    g = build_split_graph(s)
+    g.graph["document_indices"] = indices
+    with pytest.raises(ValueError):
+        validate_graph_provenance(g, s, require_full_split=True)
+
+
+@pytest.mark.parametrize("location", ["raw", "phase0", "private_gold"])
+def test_cli_protected_locations_receive_no_status_writes(cli_case, tmp_path, location):
+    args, _ = cli_case
+    target = {"raw": Path(args[1]), "phase0": Path(args[3]).parent,
+              "private_gold": tmp_path / "private_gold"}[location]
+    before = {str(p): p.read_bytes() for p in target.rglob("*") if p.is_file()} if target.exists() else {}
+    args[-1] = str(target)
+    assert main(args) == 1
+    assert not (target / "latest_run.json").exists()
+    after = {str(p): p.read_bytes() for p in target.rglob("*") if p.is_file()} if target.exists() else {}
+    assert before == after
+
+
+def test_failed_pass_publication_does_not_commit_completed_directory(cli_case, monkeypatch):
+    from scripts import build_graph as module
+    args, _ = cli_case
+    out = Path(args[-1])
+    original = module.write_latest
+    def fail_pass(path, value):
+        if value["status"] == "PASS":
+            raise OSError("injected status publication failure")
+        original(path, value)
+    monkeypatch.setattr(module, "write_latest", fail_pass)
+    assert main(args) == 1
+    state = json.loads((out / "latest_run.json").read_text())
+    assert state["status"] == "FAILED" and state["run_directory"] is None
+    assert state["error"]["stage"] == "success_status_publication"
+    assert len(list((out / "runs").iterdir())) == 1
+
+
+def test_status_initialization_failure_aborts_before_loading(cli_case, monkeypatch, capsys):
+    from scripts import build_graph as module
+    args, _ = cli_case
+    out = Path(args[-1])
+    assert main(args) == 0
+    prior = (out / "latest_run.json").read_bytes()
+    def cannot_record(*args):
+        raise OSError("injected unwritable status")
+    def cannot_load(*args):
+        pytest.fail("Inputs read without initializing attempt status")
+    monkeypatch.setattr(module, "write_latest", cannot_record)
+    monkeypatch.setattr(module, "load_json", cannot_load)
+    assert main(args) == 1
+    assert (out / "latest_run.json").read_bytes() == prior
+    assert "no new attempt recorded" in capsys.readouterr().err

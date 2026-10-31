@@ -8,7 +8,7 @@ Status: **PASS**.
 | dev | 9684 | 17284 | 7473 | 9811 | 0 |
 | test | 9779 | 17448 | 7547 | 9901 | 0 |
 
-Every node and edge was compared with its original annotation, including nested source values and provenance. Counts matched both Phase 0 expectations and source-derived mappings. Input hashes matched before and after construction.
+Every node and edge was compared with its original annotation, including nested source values and provenance. Strict FULL_SPLIT validation covered every source document. Counts matched both Phase 0 expectations and source-derived mappings. Input hashes matched before and after construction.
 
 Warnings by split: `{"dev":{"name_span_text_difference":284},"test":{"name_span_text_difference":317},"train":{"name_span_text_difference":1821}}`.
 
@@ -33,6 +33,10 @@ LACE/ASPEN/ASPEN+ boundaries remain governing; graph construction is not claimed
 .venv/bin/python -B -m pytest -q -p no:cacheprovider
 ```
 
-See validation_record.md for actual test output, repeated-run comparison and final repository integrity checks. run_manifest.json records the invocation, input hashes and implementation versions. Machine-specific metadata is not required to be byte-identical.
+See ../../validation_record.md for actual test output, repeated-run comparison and final repository integrity checks. run_manifest.json records the invocation, input hashes and implementation versions. Machine-specific metadata is not required to be byte-identical.
+
+## Execution status contract
+
+This is an immutable completed-run artifact. Check ../../latest_run.json for the latest recorded attempt: only PASS with a completed run_directory and matching artifact hashes establishes latest-attempt success. RUNNING, FAILED, a missing record or an unreadable record does not. Earlier top-level Phase 1 files are historical. Publication stages all four artifacts in a hidden directory, renames it into runs/, then atomically publishes PASS. A crash before that final status may leave an uncommitted directory; it is not an authoritative successful attempt. Use one writer per output directory; concurrent executions require separate output directories.
 
 Phase 2 requires student approval plus review of genuine identity evidence, permitted inputs, private-map safeguards, annotation protocol and partition policy. No candidate work was started. STOP.
