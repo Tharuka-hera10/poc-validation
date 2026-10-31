@@ -1,0 +1,943 @@
+{
+  "document_index": 0,
+  "examples": [
+    {
+      "edge_key": "train:0:0",
+      "endpoints": {
+        "h": {
+          "entity_index": 0,
+          "mentions": [
+            {
+              "mention_index": 0,
+              "sentence_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc.",
+                "operated",
+                "as",
+                "AirAsia",
+                "Zest",
+                "(",
+                "formerly",
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air",
+                ")",
+                ",",
+                "was",
+                "a",
+                "low",
+                "-",
+                "cost",
+                "airline",
+                "based",
+                "at",
+                "the",
+                "Ninoy",
+                "Aquino",
+                "International",
+                "Airport",
+                "in",
+                "Pasay",
+                "City",
+                ",",
+                "Metro",
+                "Manila",
+                "in",
+                "the",
+                "Philippines",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  0,
+                  0
+                ],
+                "index": "0_0",
+                "name": "Zest Airways, Inc.",
+                "pos": [
+                  0,
+                  4
+                ],
+                "sent_id": 0,
+                "type": "ORG"
+              },
+              "span_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc."
+              ]
+            },
+            {
+              "mention_index": 1,
+              "sentence_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc.",
+                "operated",
+                "as",
+                "AirAsia",
+                "Zest",
+                "(",
+                "formerly",
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air",
+                ")",
+                ",",
+                "was",
+                "a",
+                "low",
+                "-",
+                "cost",
+                "airline",
+                "based",
+                "at",
+                "the",
+                "Ninoy",
+                "Aquino",
+                "International",
+                "Airport",
+                "in",
+                "Pasay",
+                "City",
+                ",",
+                "Metro",
+                "Manila",
+                "in",
+                "the",
+                "Philippines",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  10,
+                  10
+                ],
+                "index": "0_1",
+                "name": "Asian Spirit and Zest Air",
+                "pos": [
+                  10,
+                  15
+                ],
+                "sent_id": 0,
+                "type": "ORG"
+              },
+              "span_tokens": [
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air"
+              ]
+            }
+          ],
+          "node_id": "train:0:0",
+          "omitted_mentions": 2
+        },
+        "t": {
+          "entity_index": 2,
+          "mentions": [
+            {
+              "mention_index": 0,
+              "sentence_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc.",
+                "operated",
+                "as",
+                "AirAsia",
+                "Zest",
+                "(",
+                "formerly",
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air",
+                ")",
+                ",",
+                "was",
+                "a",
+                "low",
+                "-",
+                "cost",
+                "airline",
+                "based",
+                "at",
+                "the",
+                "Ninoy",
+                "Aquino",
+                "International",
+                "Airport",
+                "in",
+                "Pasay",
+                "City",
+                ",",
+                "Metro",
+                "Manila",
+                "in",
+                "the",
+                "Philippines",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  31,
+                  31
+                ],
+                "index": "2_0",
+                "name": "Pasay City",
+                "pos": [
+                  31,
+                  33
+                ],
+                "sent_id": 0,
+                "type": "LOC"
+              },
+              "span_tokens": [
+                "Pasay",
+                "City"
+              ]
+            }
+          ],
+          "node_id": "train:0:2",
+          "omitted_mentions": 0
+        }
+      },
+      "evidence_availability": "nonempty",
+      "evidence_sentences": [
+        {
+          "rendered_view": "Zest Airways , Inc. operated as AirAsia Zest ( formerly Asian Spirit and Zest Air ) , was a low - cost airline based at the Ninoy Aquino International Airport in Pasay City , Metro Manila in the Philippines .",
+          "sentence_index": 0,
+          "tokens": [
+            "Zest",
+            "Airways",
+            ",",
+            "Inc.",
+            "operated",
+            "as",
+            "AirAsia",
+            "Zest",
+            "(",
+            "formerly",
+            "Asian",
+            "Spirit",
+            "and",
+            "Zest",
+            "Air",
+            ")",
+            ",",
+            "was",
+            "a",
+            "low",
+            "-",
+            "cost",
+            "airline",
+            "based",
+            "at",
+            "the",
+            "Ninoy",
+            "Aquino",
+            "International",
+            "Airport",
+            "in",
+            "Pasay",
+            "City",
+            ",",
+            "Metro",
+            "Manila",
+            "in",
+            "the",
+            "Philippines",
+            "."
+          ]
+        }
+      ],
+      "omitted_evidence_sentences": 0,
+      "provenance": {
+        "document_id": "train:0",
+        "document_index": 0,
+        "document_sha256": "52c3eda811d1a8912d7ed5ae9bdada8dced6d466f9c66b282c6fa039fb3c68ae",
+        "head_index": 0,
+        "label_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train",
+        "tail_index": 2,
+        "title": "AirAsia Zest"
+      },
+      "source_relation": {
+        "evidence": [
+          0
+        ],
+        "h": 0,
+        "r": "P159",
+        "t": 2
+      }
+    },
+    {
+      "edge_key": "train:0:1",
+      "endpoints": {
+        "h": {
+          "entity_index": 0,
+          "mentions": [
+            {
+              "mention_index": 0,
+              "sentence_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc.",
+                "operated",
+                "as",
+                "AirAsia",
+                "Zest",
+                "(",
+                "formerly",
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air",
+                ")",
+                ",",
+                "was",
+                "a",
+                "low",
+                "-",
+                "cost",
+                "airline",
+                "based",
+                "at",
+                "the",
+                "Ninoy",
+                "Aquino",
+                "International",
+                "Airport",
+                "in",
+                "Pasay",
+                "City",
+                ",",
+                "Metro",
+                "Manila",
+                "in",
+                "the",
+                "Philippines",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  0,
+                  0
+                ],
+                "index": "0_0",
+                "name": "Zest Airways, Inc.",
+                "pos": [
+                  0,
+                  4
+                ],
+                "sent_id": 0,
+                "type": "ORG"
+              },
+              "span_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc."
+              ]
+            },
+            {
+              "mention_index": 1,
+              "sentence_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc.",
+                "operated",
+                "as",
+                "AirAsia",
+                "Zest",
+                "(",
+                "formerly",
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air",
+                ")",
+                ",",
+                "was",
+                "a",
+                "low",
+                "-",
+                "cost",
+                "airline",
+                "based",
+                "at",
+                "the",
+                "Ninoy",
+                "Aquino",
+                "International",
+                "Airport",
+                "in",
+                "Pasay",
+                "City",
+                ",",
+                "Metro",
+                "Manila",
+                "in",
+                "the",
+                "Philippines",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  10,
+                  10
+                ],
+                "index": "0_1",
+                "name": "Asian Spirit and Zest Air",
+                "pos": [
+                  10,
+                  15
+                ],
+                "sent_id": 0,
+                "type": "ORG"
+              },
+              "span_tokens": [
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air"
+              ]
+            }
+          ],
+          "node_id": "train:0:0",
+          "omitted_mentions": 2
+        },
+        "t": {
+          "entity_index": 4,
+          "mentions": [
+            {
+              "mention_index": 0,
+              "sentence_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc.",
+                "operated",
+                "as",
+                "AirAsia",
+                "Zest",
+                "(",
+                "formerly",
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air",
+                ")",
+                ",",
+                "was",
+                "a",
+                "low",
+                "-",
+                "cost",
+                "airline",
+                "based",
+                "at",
+                "the",
+                "Ninoy",
+                "Aquino",
+                "International",
+                "Airport",
+                "in",
+                "Pasay",
+                "City",
+                ",",
+                "Metro",
+                "Manila",
+                "in",
+                "the",
+                "Philippines",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  38,
+                  38
+                ],
+                "index": "4_0",
+                "name": "Philippines",
+                "pos": [
+                  38,
+                  39
+                ],
+                "sent_id": 0,
+                "type": "LOC"
+              },
+              "span_tokens": [
+                "Philippines"
+              ]
+            },
+            {
+              "mention_index": 1,
+              "sentence_tokens": [
+                "The",
+                "airline",
+                "was",
+                "founded",
+                "as",
+                "Asian",
+                "Spirit",
+                ",",
+                "the",
+                "first",
+                "airline",
+                "in",
+                "the",
+                "Philippines",
+                "to",
+                "be",
+                "run",
+                "as",
+                "a",
+                "cooperative",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  111,
+                  111
+                ],
+                "index": "4_1",
+                "name": "Philippines",
+                "pos": [
+                  13,
+                  14
+                ],
+                "sent_id": 4,
+                "type": "LOC"
+              },
+              "span_tokens": [
+                "Philippines"
+              ]
+            }
+          ],
+          "node_id": "train:0:4",
+          "omitted_mentions": 1
+        }
+      },
+      "evidence_availability": "nonempty",
+      "evidence_sentences": [
+        {
+          "rendered_view": "In 2013 , the airline became an affiliate of Philippines AirAsia operating their brand separately .",
+          "sentence_index": 2,
+          "tokens": [
+            "In",
+            "2013",
+            ",",
+            "the",
+            "airline",
+            "became",
+            "an",
+            "affiliate",
+            "of",
+            "Philippines",
+            "AirAsia",
+            "operating",
+            "their",
+            "brand",
+            "separately",
+            "."
+          ]
+        },
+        {
+          "rendered_view": "The airline was founded as Asian Spirit , the first airline in the Philippines to be run as a cooperative .",
+          "sentence_index": 4,
+          "tokens": [
+            "The",
+            "airline",
+            "was",
+            "founded",
+            "as",
+            "Asian",
+            "Spirit",
+            ",",
+            "the",
+            "first",
+            "airline",
+            "in",
+            "the",
+            "Philippines",
+            "to",
+            "be",
+            "run",
+            "as",
+            "a",
+            "cooperative",
+            "."
+          ]
+        },
+        {
+          "rendered_view": "The airline was merged into AirAsia Philippines in January 2016 .",
+          "sentence_index": 7,
+          "tokens": [
+            "The",
+            "airline",
+            "was",
+            "merged",
+            "into",
+            "AirAsia",
+            "Philippines",
+            "in",
+            "January",
+            "2016",
+            "."
+          ]
+        }
+      ],
+      "omitted_evidence_sentences": 0,
+      "provenance": {
+        "document_id": "train:0",
+        "document_index": 0,
+        "document_sha256": "52c3eda811d1a8912d7ed5ae9bdada8dced6d466f9c66b282c6fa039fb3c68ae",
+        "head_index": 0,
+        "label_index": 1,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train",
+        "tail_index": 4,
+        "title": "AirAsia Zest"
+      },
+      "source_relation": {
+        "evidence": [
+          2,
+          4,
+          7
+        ],
+        "h": 0,
+        "r": "P17",
+        "t": 4
+      }
+    },
+    {
+      "edge_key": "train:0:2",
+      "endpoints": {
+        "h": {
+          "entity_index": 12,
+          "mentions": [
+            {
+              "mention_index": 0,
+              "sentence_tokens": [
+                "On",
+                "August",
+                "16",
+                ",",
+                "2013",
+                ",",
+                "the",
+                "Civil",
+                "Aviation",
+                "Authority",
+                "of",
+                "the",
+                "Philippines",
+                "(",
+                "CAAP",
+                ")",
+                ",",
+                "the",
+                "regulating",
+                "body",
+                "of",
+                "the",
+                "Government",
+                "of",
+                "the",
+                "Republic",
+                "of",
+                "the",
+                "Philippines",
+                "for",
+                "civil",
+                "aviation",
+                ",",
+                "suspended",
+                "Zest",
+                "Air",
+                "flights",
+                "until",
+                "further",
+                "notice",
+                "because",
+                "of",
+                "safety",
+                "issues",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  153,
+                  153
+                ],
+                "index": "12_0",
+                "name": "Zest Air",
+                "pos": [
+                  34,
+                  36
+                ],
+                "sent_id": 5,
+                "type": "ORG"
+              },
+              "span_tokens": [
+                "Zest",
+                "Air"
+              ]
+            },
+            {
+              "mention_index": 1,
+              "sentence_tokens": [
+                "Less",
+                "than",
+                "a",
+                "year",
+                "after",
+                "AirAsia",
+                "and",
+                "Zest",
+                "Air",
+                "'s",
+                "strategic",
+                "alliance",
+                ",",
+                "the",
+                "airline",
+                "has",
+                "been",
+                "rebranded",
+                "as",
+                "AirAsia",
+                "Zest",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  171,
+                  171
+                ],
+                "index": "12_1",
+                "name": "Zest Air",
+                "pos": [
+                  7,
+                  9
+                ],
+                "sent_id": 6,
+                "type": "ORG"
+              },
+              "span_tokens": [
+                "Zest",
+                "Air"
+              ]
+            }
+          ],
+          "node_id": "train:0:12",
+          "omitted_mentions": 0
+        },
+        "t": {
+          "entity_index": 4,
+          "mentions": [
+            {
+              "mention_index": 0,
+              "sentence_tokens": [
+                "Zest",
+                "Airways",
+                ",",
+                "Inc.",
+                "operated",
+                "as",
+                "AirAsia",
+                "Zest",
+                "(",
+                "formerly",
+                "Asian",
+                "Spirit",
+                "and",
+                "Zest",
+                "Air",
+                ")",
+                ",",
+                "was",
+                "a",
+                "low",
+                "-",
+                "cost",
+                "airline",
+                "based",
+                "at",
+                "the",
+                "Ninoy",
+                "Aquino",
+                "International",
+                "Airport",
+                "in",
+                "Pasay",
+                "City",
+                ",",
+                "Metro",
+                "Manila",
+                "in",
+                "the",
+                "Philippines",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  38,
+                  38
+                ],
+                "index": "4_0",
+                "name": "Philippines",
+                "pos": [
+                  38,
+                  39
+                ],
+                "sent_id": 0,
+                "type": "LOC"
+              },
+              "span_tokens": [
+                "Philippines"
+              ]
+            },
+            {
+              "mention_index": 1,
+              "sentence_tokens": [
+                "The",
+                "airline",
+                "was",
+                "founded",
+                "as",
+                "Asian",
+                "Spirit",
+                ",",
+                "the",
+                "first",
+                "airline",
+                "in",
+                "the",
+                "Philippines",
+                "to",
+                "be",
+                "run",
+                "as",
+                "a",
+                "cooperative",
+                "."
+              ],
+              "source_mention": {
+                "global_pos": [
+                  111,
+                  111
+                ],
+                "index": "4_1",
+                "name": "Philippines",
+                "pos": [
+                  13,
+                  14
+                ],
+                "sent_id": 4,
+                "type": "LOC"
+              },
+              "span_tokens": [
+                "Philippines"
+              ]
+            }
+          ],
+          "node_id": "train:0:4",
+          "omitted_mentions": 1
+        }
+      },
+      "evidence_availability": "nonempty",
+      "evidence_sentences": [
+        {
+          "rendered_view": "Less than a year after AirAsia and Zest Air 's strategic alliance , the airline has been rebranded as AirAsia Zest .",
+          "sentence_index": 6,
+          "tokens": [
+            "Less",
+            "than",
+            "a",
+            "year",
+            "after",
+            "AirAsia",
+            "and",
+            "Zest",
+            "Air",
+            "'s",
+            "strategic",
+            "alliance",
+            ",",
+            "the",
+            "airline",
+            "has",
+            "been",
+            "rebranded",
+            "as",
+            "AirAsia",
+            "Zest",
+            "."
+          ]
+        },
+        {
+          "rendered_view": "The airline was merged into AirAsia Philippines in January 2016 .",
+          "sentence_index": 7,
+          "tokens": [
+            "The",
+            "airline",
+            "was",
+            "merged",
+            "into",
+            "AirAsia",
+            "Philippines",
+            "in",
+            "January",
+            "2016",
+            "."
+          ]
+        }
+      ],
+      "omitted_evidence_sentences": 0,
+      "provenance": {
+        "document_id": "train:0",
+        "document_index": 0,
+        "document_sha256": "52c3eda811d1a8912d7ed5ae9bdada8dced6d466f9c66b282c6fa039fb3c68ae",
+        "head_index": 12,
+        "label_index": 2,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train",
+        "tail_index": 4,
+        "title": "AirAsia Zest"
+      },
+      "source_relation": {
+        "evidence": [
+          6,
+          7
+        ],
+        "h": 12,
+        "r": "P17",
+        "t": 4
+      }
+    }
+  ],
+  "interpretation": "Original annotations and token arrays; rendered views are not original whitespace text.",
+  "omitted_relations": 33,
+  "selection_rule": "lowest train document index with a relation; first at most 3 labels",
+  "title": "AirAsia Zest"
+}

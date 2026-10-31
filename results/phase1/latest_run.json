@@ -1,0 +1,24 @@
+{
+  "artifact_sha256": {
+    "graph_summary.json": "dfa9af63a4ead101a8730ff73a8f48bbca9aa5c99ae84db8b07818bc87d57886",
+    "phase1_report.md": "ac6feac78c7cf30b1d33633a631a85503fc4e5bacb7252edfcf4cb6bb374c630",
+    "provenance_demo.json": "f239b48ed3a80b3526c273555712c5d393a9c914882c19551aca0c453502546c",
+    "run_manifest.json": "82841f34002c24a8d29a7fc457333ab9a3fd84239f845413c5acc59795869b0e"
+  },
+  "command": [
+    "/opt/homebrew/Cellar/python@3.12/3.12.15/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python",
+    "-B",
+    "scripts/build_graph.py",
+    "--data-dir",
+    "data/raw/re_docred/data",
+    "--manifest",
+    "results/phase0/input_manifest.json",
+    "--output-dir",
+    "results/phase1"
+  ],
+  "error": null,
+  "format_version": 2,
+  "run_directory": "runs/5e2ac858263244c39f5a352b5804eefd",
+  "run_id": "5e2ac858263244c39f5a352b5804eefd",
+  "status": "PASS"
+}
