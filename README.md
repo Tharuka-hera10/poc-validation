@@ -95,3 +95,7 @@ See [query methodology](docs/phase3_query_methodology.md) and [QA review guide](
 ## Phase 3 post-review annotation supplements
 
 Run `.venv/bin/python -B scripts/prepare_qa_annotation_supplement.py` to prepare additional blank triple-level and path-composition sheets from frozen public Phase 3 results and original source. Output goes only to new ignored data/private_gold/phase3/annotation_supplements/runs/<id>/ packages; no existing private annotations are read or overwritten. The original query/answer worklist and all public Phase 3 results remain unchanged. See [review findings](docs/phase3_review_findings.md) and the [QA guide](docs/qa_annotation_guide.md). Cleanup of duplicate historical artifacts is proposed only, awaiting separate approval; no Phase 4 work is included.
+
+## Phase 2 manual identity review preparation
+
+Run `.venv/bin/python -B scripts/identity_annotation.py prepare` to create a new Git-ignored working workspace for the fixed 24 pairs. It contains a blank editable CSV, source-grounded Markdown evidence for both endpoints, activity log and preparation manifest. Original Phase 2 packages and all public results are preserved. No identity labels or reviewer details are generated. See the [manual annotation workflow](docs/annotation_guide.md) for explicit logging and read-only validation commands to use after entering your own decisions. No labels are frozen and no Phase 3 annotation or Phase 4 work is included.
