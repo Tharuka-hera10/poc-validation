@@ -1,0 +1,61 @@
+{
+  "command": [
+    "/opt/homebrew/Cellar/python@3.12/3.12.15/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python",
+    "-B",
+    "scripts/query_workload.py",
+    "--data-dir",
+    "data/raw/re_docred/data",
+    "--manifest",
+    "results/phase0/input_manifest.json",
+    "--output-dir",
+    "results/phase3",
+    "--review-dir",
+    "data/private_gold/phase3"
+  ],
+  "format_version": 1,
+  "human_verification_performed": false,
+  "implementation_sha256": {
+    "audit_dataset.py": "1d4ca460338fddf344f5139954602468667f212e1bc19fa820e4b3b52c401fa3",
+    "build_graph.py": "29a011ba38edeffc696c1b532acfbcb9f11a48e8dada82db7ba8e319616c81d5",
+    "candidate_discovery.py": "14ac90ec0fe923b73e3e8bdf8b9221aaab56bd0c3f446b46fc79b5c1fda73e5b",
+    "prepare_annotation_worklist.py": "6d45d50f99ee5d200ea6269a4f13b22eb400eb05e9d9c23e826a470ce0badfb3",
+    "prepare_qa_worklist.py": "10896880418014c97031b1327ab5f614ee78079d024b8b3f8d2d5d07a2cc5469",
+    "query_workload.py": "9a4942100768e7c6febdfa44687933dcf271de70d07d2d93b2a30f8bf825d367"
+  },
+  "phase0_audit_sha256": "bb672fa96988c560a1db2c7c8eab483764e708de897eb10754172486cf913b68",
+  "phase0_manifest_sha256": "4a366da1132d56cd5ac8d9553dce723e697a35fbdfb8832f34e0f85c26e7853b",
+  "phase1_reference": {
+    "artifact_sha256": {
+      "graph_summary.json": "dfa9af63a4ead101a8730ff73a8f48bbca9aa5c99ae84db8b07818bc87d57886",
+      "phase1_report.md": "ac6feac78c7cf30b1d33633a631a85503fc4e5bacb7252edfcf4cb6bb374c630",
+      "provenance_demo.json": "f239b48ed3a80b3526c273555712c5d393a9c914882c19551aca0c453502546c",
+      "run_manifest.json": "82841f34002c24a8d29a7fc457333ab9a3fd84239f845413c5acc59795869b0e"
+    },
+    "latest_status_sha256": "c603271c0e96b253fb24f003cfccc5cdd3881af0b07490ea59f7f2b5ef165ecd"
+  },
+  "phase2_public_reference": {
+    "latest_sha256": "dea6dae1018d1b4ef86d3ed8045a8743a86321a7891922f38ed7945f5cdd24ce",
+    "public_artifact_sha256": {
+      "candidate_feasibility_report.md": "a87c0a3ae0e015d6397778cf10ef99962648dab10e49b914ef12a63a1eab007c",
+      "candidate_inventory.json": "ecbadf339811ac5c75b921c57379a4eb65307d97aec7bcb0004cb94318310576",
+      "candidates_train.json": "3585ca9f328aece3c6b158367bdc219d5252e6575b66b74a38a09fa6e52f1dcb",
+      "phase2_report.md": "8351302803ee2cfa3ef9c529f9305b7d245aad3e0ab819c284deeed59a8b2245",
+      "run_manifest.json": "693d5c823cc197400ab3eb3f0a169676e9fb8b29416d31128e7358fc35c088ed"
+    }
+  },
+  "policy_sha256": "1b61e92c4bb545caca99fb7eb66f59ed7c4bb31ae7d380e474865e4c34c53c98",
+  "private_inputs_read": false,
+  "python": "3.12.15 (main, Sep 30 2026, 22:04:19) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "query_version": "phase3-structural-v1",
+  "runtime_seconds_before_publication": 17.78544204204809,
+  "source_sha256_after": {
+    "dev": "051ee1d057204a5d08ef5502beacdadf191245b5eaf0e29ec2c607cf002c016f",
+    "test": "ea673b7ef91e16510d7eb88863d3903e47318dc5653ef361266f27ae3b84723c",
+    "train": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2"
+  },
+  "source_sha256_before": {
+    "dev": "051ee1d057204a5d08ef5502beacdadf191245b5eaf0e29ec2c607cf002c016f",
+    "test": "ea673b7ef91e16510d7eb88863d3903e47318dc5653ef361266f27ae3b84723c",
+    "train": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2"
+  }
+}

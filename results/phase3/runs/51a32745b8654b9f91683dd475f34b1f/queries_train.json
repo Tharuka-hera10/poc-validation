@@ -1,0 +1,331 @@
+{
+  "format_version": 1,
+  "queries": [
+    {
+      "anchor_entity_id": "train:0:4",
+      "anchor_provenance": {
+        "document_index": 0,
+        "document_sha256": "52c3eda811d1a8912d7ed5ae9bdada8dced6d466f9c66b282c6fa039fb3c68ae",
+        "entity_index": 4,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 2,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_42ee3a5a8d5e59619ee11566b99a04e924f958c1820d3192e272bfe607485dea",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P150",
+        "P131"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:2:6",
+      "anchor_provenance": {
+        "document_index": 2,
+        "document_sha256": "aadf7cf13fc8e12727c2d6fb946e08afa674f8635983998a5f66c65f25e029d5",
+        "entity_index": 6,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 3,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_d20f97547e868436c2a64a30835a16834c5cbdceeadb50b9221ee685cdc513c4",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P527",
+        "P19",
+        "P131"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:3:0",
+      "anchor_provenance": {
+        "document_index": 3,
+        "document_sha256": "a2564d4c7c9dfd8b587881f240d57966fbd1074a778b93abf695d8013ba17f69",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 2,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_4e4c25ca12e274c383ade25455bfb299221b777c73c8de169a96922ce6b53e8a",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P131",
+        "P131"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:4:0",
+      "anchor_provenance": {
+        "document_index": 4,
+        "document_sha256": "8c413b4f98e003e1784d091afa97e47e33236bd93b7ba75f8fe206845937508a",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 2,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_1afc700695ea8968a15fd050bf98dafc7b1a6e9280c31b15c8a1c51abc284a1c",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P1001",
+        "P30"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:5:0",
+      "anchor_provenance": {
+        "document_index": 5,
+        "document_sha256": "a9971fceac9587a1687290dcc24a76c16dc810ced763dd20dd173f5591f1ca4e",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 2,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_2706aa66ea34e37e8c50f5179213f2171ff582a5e7080fba516dc8c5ef4e795e",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P131",
+        "P150"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:6:0",
+      "anchor_provenance": {
+        "document_index": 6,
+        "document_sha256": "e7d5a852cc9dad261d87dced7491ec9aa5de882a734237c6c6b0b48986ac506b",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 2,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_e2920d59887f32a60662ff184e2f2631583bcfbb1b77a118e413c9d15e4092c0",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P131",
+        "P17"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:7:0",
+      "anchor_provenance": {
+        "document_index": 7,
+        "document_sha256": "da41ae57439d4f7937938b3b7479fe8a33cda69834446861f9943406cf98162b",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 3,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_4f3131f0b9821bd937988b964798044fc807ebded8aa9d569b64b85bcc5c6709",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P155",
+        "P175",
+        "P264"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:8:0",
+      "anchor_provenance": {
+        "document_index": 8,
+        "document_sha256": "725ed958c2f0872a2850b393e20b1c16698a0f16ac5d5aba6e599425d14e74fa",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 3,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_cfad92ace3b2ebc36709c3da576155237509650fd058d32909cf05ea6c81d866",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P131",
+        "P131",
+        "P131"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:9:0",
+      "anchor_provenance": {
+        "document_index": 9,
+        "document_sha256": "9c7533683c126656fa7330b57ceba11120dd1eb6bde1a887c24cd57cad6dfd3e",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 3,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_2494ff09561e7b641c9609884673613b0a852111873e4f028b68488d8fdc0531",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P166",
+        "P361",
+        "P276"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:10:0",
+      "anchor_provenance": {
+        "document_index": 10,
+        "document_sha256": "692120639c04cf44cec98d9bd2648f84919c365af96078cf78a333008f3306c8",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 3,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_b68ef9f2f3ab92510a5616759327ce8ba4adaa7d129db8c29af0d6e26a3f31bd",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P403",
+        "P131",
+        "P131"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:1:0",
+      "anchor_provenance": {
+        "document_index": 1,
+        "document_sha256": "1ee4e67e977f6817efba0895f57025273d46dea01cbb548a6b05d2f84b833c5b",
+        "entity_index": 0,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 2,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_42e0fd76479fde01f724cd92906bdf001801550f3a27593d4fbc82c94d7d01c3",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P1001",
+        "P1001"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "anchor_entity_id": "train:11:4",
+      "anchor_provenance": {
+        "document_index": 11,
+        "document_sha256": "c12e54478416d2bfd843ae55e68af16ea935ffe35a5262e5eb9a0d6ee23e47cf",
+        "entity_index": 4,
+        "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+        "split": "train"
+      },
+      "dataset_split": "train",
+      "hop_count": 3,
+      "max_extensions": 100000,
+      "path_policy": "simple",
+      "query_id": "query_e3f529a9d91bb14c64d2a9e8a50cf3763c9767a0be83c1e3f3e2956860b0e714",
+      "query_version": "phase3-structural-v1",
+      "relations": [
+        "P1001",
+        "P1001",
+        "P1001"
+      ],
+      "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2",
+      "type_constraints": [
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ],
+  "query_version": "phase3-structural-v1",
+  "source_sha256": "c40a137a1c57f3e2daaf5ebf511eaa1518f9305ffaa3052d46271921a91826f2"
+}

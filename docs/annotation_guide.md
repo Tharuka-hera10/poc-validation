@@ -45,3 +45,29 @@ Keep the generated package intact. Save completed annotations separately under `
 Reviewer packages, confidence, decisions and future parent mappings remain evaluation-only and Git-ignored. Never copy them into matcher, risk or candidate features. Candidate source inputs may later be shared equally with comparators through an approved source interface; reviewer conclusions remain private.
 
 Do not publish source excerpts or private annotations while redistribution/ethics permissions remain unresolved. Source evidence can be incomplete or wrong. This worklist is not a finished gold benchmark and provides no ER or QA accuracy result. Stop after Phase 2 review; graph fragmentation and Phase 3 require separate approval.
+
+## Private manual annotation workspace
+
+Student-approved preparation utility: `scripts/identity_annotation.py`. This evaluation-only tool is separate from inference and does not recommend identities. It reconstructs the fixed 24-pair blank worklist from verified source data and frozen public Phase 2 candidates, checking reconstruction against original package hashes without reading earlier private annotations.
+
+Prepare a new workspace:
+
+```bash
+.venv/bin/python -B scripts/identity_annotation.py prepare
+```
+
+The printed path is under `data/private_gold/phase2/annotations/working/<workspace-id>/`. Each workspace contains editable `annotations.csv`, source-grounded `evidence.md`, `identity_annotation_log.md` and preparation `annotation_manifest.json`. Existing directories are refused. Pending directories are not completed workspaces. The source view includes all mentions, exact token arrays, rendered sentences, complete document context, incident relations and provenance. It supplies no identity recommendations. Original Phase 2 generated packages remain intact. Multiple prepared workspaces are blank copies; select one for your actual review, rather than splitting decisions between them accidentally.
+
+Edit the CSV manually, keeping source columns and candidate IDs unchanged. Use the exact decision definitions above; confidence must be low/medium/high, with explanation in rationale. Enter the actual review date as YYYY-MM-DD. Source references in `evidence_references` use semicolon-separated `train:D:sentence:S`, `train:D:entity:E:mention:M`, or `train:D:label:L` forms. The workspace manifest binds these references to the train SHA-256. Record ambiguities even for UNKNOWN; blank decisions are unreviewed. External sources require separately approved source-use rules and are not accepted as substitutes for source references by this version.
+
+After you manually enter reviews, run the read-only check (replace WORKSPACE with the printed path):
+
+```bash
+.venv/bin/python -B scripts/identity_annotation.py validate --workspace WORKSPACE
+```
+
+It prints counts and errors to stdout, exits 1 on invalid/incomplete review records, and writes nothing. Completely blank rows remain UNREVIEWED; structural validity of annotation records does not establish completed or scientifically correct annotation. Partial reviews may be checked without claiming the entire worklist is finished. Evidence, endpoints and source fingerprints are checked; semantic justification, actual reviewer identity, confidence calibration and independence cannot be certified by software.
+
+Record an actual activity with `log --workspace WORKSPACE --candidate-id ID --date YYYY-MM-DD --evidence 'train:D:sentence:S' --minutes N --notes 'actual notes'`. Every value must be supplied by you; it appends only to the activity log and does not fill decisions or reviewer metadata. Update the log's reviewer, start date and IN PROGRESS status manually when review actually begins. Do not estimate unrecorded time or claim a second reviewer. Record AI assistance accurately.
+
+The manifest's initial file hashes describe the blank preparation snapshot, not later editable-file hashes. No freeze command is provided. A separately approved frozen version must remain outside the editable working directory; frozen labels and human annotation completion require explicit student confirmation. Keep every workspace private and Git-ignored. Preparation is not annotation completion.
